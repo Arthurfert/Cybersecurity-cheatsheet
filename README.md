@@ -6,7 +6,7 @@
 
 | Sujet | Description | Lien |
 |-------|-------------|------|
-| 🔤 **Encodage** | Base64, Hex, URL Encoding, Unicode... | [Encoding](./Encoding/README.md) |
+| **Encodage** | Base64, Hex, URL Encoding, Unicode... | [Encoding](./Encoding/encoding.md) |
 
 ## À venir
 
