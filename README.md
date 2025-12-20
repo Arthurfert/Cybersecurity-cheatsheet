@@ -7,10 +7,10 @@
 | Sujet | Description | Lien |
 |-------|-------------|------|
 | **Encodage** | Base64, Hex, URL Encoding, Unicode... | [Encoding](./Encoding/encoding.md) |
+| **Chiffrement symétrique** | AES, DES, ChaCha20 | [symetric_encryption](./Encryption/symetric_encryption.md) |
 
 ## À venir
 
-- Chiffrement symétrique (AES, DES, ChaCha20...)
 - Chiffrement asymétrique (RSA, ECC...)
 - Fonctions de hachage (MD5, SHA, bcrypt...)
 - Signatures numériques

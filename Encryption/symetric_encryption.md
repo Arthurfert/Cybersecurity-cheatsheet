@@ -25,6 +25,8 @@
 
 Le chiffrement symétrique chiffre des données à l'aide d'une clé secrète partagée. Il est généralement plus rapide que le chiffrement asymétrique et est utilisé pour chiffrer des volumes de données (stockage, canaux TLS, VPN, etc.).
 
+ ![Schema chiffrement symétrique](/assets/Chiffrement_symétrique.png)
+
 ---
 
 ## Algorithmes courants
@@ -218,4 +220,5 @@ pt = chacha.decrypt(nonce, ct, None)
  - [RFC 5116 - An Interface and Algorithms for Authenticated Encryption](https://datatracker.ietf.org/doc/html/rfc5116)
  - [RFC 7539 - ChaCha20 and Poly1305 for IETF Protocols](https://datatracker.ietf.org/doc/html/rfc7539)
  - [OpenSSL Documentation](https://www.openssl.org/docs/)
- - [cryptography — Python library documentation](https://cryptography.io/en/latest/)
+ - [cryptography - Python library documentation](https://cryptography.io/en/latest/)
+ - [Wikipedia - Cryptographie Symétrique](https://fr.wikipedia.org/wiki/Cryptographie_sym%C3%A9trique)
