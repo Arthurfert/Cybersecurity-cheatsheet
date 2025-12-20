@@ -21,6 +21,16 @@
 ### Description
 Encode des données binaires en caractères ASCII imprimables. Utilise 64 caractères : `A-Z`, `a-z`, `0-9`, `+`, `/` et `=` pour le padding.
 
+### Avantages
+- Représente proprement les données binaires en ASCII imprimable.
+- Moins verbeux que l'hexadécimal pour des données binaires (ratio 4:3).
+- Large support logiciel (e-mails, API, MIME, etc.).
+
+### Inconvénients
+- Augmente la taille des données (~+33%).
+- Réencodage même pour les données déjà textuelles.
+- Peut être confondu avec d'autres formats si mal délimité (padding, alphabet).
+
 ### Caractéristiques
 | Propriété | Valeur |
 |-----------|--------|
@@ -81,6 +91,15 @@ decoded = base64.b64decode("SGVsbG8gV29ybGQ=").decode()
 ### Description
 Représente chaque octet par 2 caractères hexadécimaux (0-9, A-F).
 
+### Avantages
+- Représentation simple et directe d'octets (facile à lire pour les développeurs).
+- Très répandu et bien supporté par les outils (debug, dumps, traces).
+
+### Inconvénients
+- Double la taille des données (x2).
+- Peu lisible pour de longues séries d'octets sans mise en forme.
+- Pas adapté pour l'affichage dans des environnements limités en caractères.
+
 ### Caractéristiques
 | Propriété | Valeur |
 |-----------|--------|
@@ -125,10 +144,56 @@ bytes.fromhex("48656c6c6f").decode()
 
 ---
 
+## Binary
+
+### Description
+Représentation en base 2 (0 et 1). Chaque caractère ASCII = 8 bits.
+
+### Avantages
+- Représentation fondamentale au niveau matériel et utile pour l'analyse bas-niveau.
+- Permet d'illustrer précisément l'état des bits (bitmasks, flags).
+
+### Inconvénients
+- Très verbeux pour un usage humain (8x plus long que l'octet correspondant).
+- Peu pratique pour le stockage ou le transport sans transformation.
+
+### Exemples
+
+```
+Caractère : A
+Décimal   : 65
+Binaire   : 01000001
+
+Texte     : Hi
+Binaire   : 01001000 01101001
+```
+
+### Python
+
+```python
+# Texte vers binaire
+' '.join(format(ord(c), '08b') for c in "Hi")
+# '01001000 01101001'
+
+# Binaire vers texte
+binary = "01001000 01101001"
+''.join(chr(int(b, 2)) for b in binary.split())
+# 'Hi'
+```
+---
+
 ## Base32
 
 ### Description
 Similaire à Base64 mais utilise 32 caractères, plus adapté aux systèmes case-insensitive.
+
+### Avantages
+- Meilleur ratio que l'hexadécimal pour représenter des octets.
+- Alphabet conçu pour être case-insensitive et lisible (utile pour noms de fichiers, OTP, clés).
+
+### Inconvénients
+- Plus verbeux que Base64 (~+60%).
+- Moins utilisé, donc parfois moins supporté.
 
 ### Caractéristiques
 | Propriété | Valeur |
@@ -167,6 +232,14 @@ base64.b32decode("JBSWY3DP").decode()
 
 ### Description
 Standard d'encodage de caractères sur 7 bits (128 caractères).
+
+### Avantages
+- Standard simple et très répandu pour l'anglais et les protocoles historiques.
+- Efficace en espace pour les caractères ASCII (1 octet).
+
+### Inconvénients
+- Ne supporte pas les caractères non-latins (limité à 128 ou 256 selon l'implémentation).
+- Risque d'erreurs d'encodage si mal utilisé avec UTF-8/Unicode.
 
 ### Table ASCII courante
 
@@ -254,6 +327,14 @@ Double        : %253Cscript%253E
 ### Description
 Représente des caractères spéciaux en HTML pour éviter les conflits avec la syntaxe.
 
+### Avantages
+- Protège contre l'injection HTML en représentant les caractères spéciaux.
+- Standard supporté par tous les navigateurs et bibliothèques web.
+
+### Inconvénients
+- Peut rendre le contenu moins lisible pour les humains si sur-utilisé.
+- Certaines entités moins courantes peuvent être mal interprétées entre navigateurs.
+
 ### Entités courantes
 
 | Caractère | Entity Name | Entity Number |
@@ -292,6 +373,14 @@ html.unescape('&lt;script&gt;')  # '<script>'
 ### Description
 Standard universel d'encodage supportant tous les caractères de toutes les langues.
 
+### Avantages
+- Permet d'encoder tous les caractères du monde, interopérable entre systèmes.
+- UTF-8 est rétrocompatible avec ASCII et économe en espace pour les textes latins.
+
+### Inconvénients
+- Complexité de gestion (endianness, BOM, normalisation, combining characters).
+- Risque d'homoglyphes et de spoofing si non filtré.
+
 ### Formats d'encodage
 
 | Format | Description | Exemple pour 'A' |
@@ -327,37 +416,6 @@ chr(8364)  # '€'
 ```
 Caractère normal    : a (U+0061)
 Homoglyphe cyrillique : а (U+0430)
-```
-
----
-
-## Binary
-
-### Description
-Représentation en base 2 (0 et 1). Chaque caractère ASCII = 8 bits.
-
-### Exemples
-
-```
-Caractère : A
-Décimal   : 65
-Binaire   : 01000001
-
-Texte     : Hi
-Binaire   : 01001000 01101001
-```
-
-### Python
-
-```python
-# Texte vers binaire
-' '.join(format(ord(c), '08b') for c in "Hi")
-# '01001000 01101001'
-
-# Binaire vers texte
-binary = "01001000 01101001"
-''.join(chr(int(b, 2)) for b in binary.split())
-# 'Hi'
 ```
 
 ---
@@ -426,6 +484,9 @@ def detect_encoding(s):
 | Hex | 0-9A-F | x2 | Uniquement hex, longueur paire |
 | URL | %XX | Variable | Contient `%` |
 | Binary | 01 | x8 | Que des 0 et 1 |
+| ASCII | 0-127 | 1 octet | Limité aux caractères latins |
+| HTML Entities | &lt; &gt; &amp; etc. | Variable | Protège le HTML |
+| Unicode (UTF-8) | Multi-octets | Variable | Support universel des caractères |
 
 ---
 
