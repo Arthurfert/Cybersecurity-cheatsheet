@@ -420,7 +420,7 @@ Homoglyphe cyrillique : а (U+0430)
 
 ---
 
-## 🛠️ Outils de détection
+## Outils de détection
 
 ### Outils en ligne
 - [CyberChef](https://gchq.github.io/CyberChef/) - Le couteau suisse du décodage
@@ -475,7 +475,7 @@ def detect_encoding(s):
 
 ---
 
-## 📊 Tableau récapitulatif
+## Tableau récapitulatif
 
 | Encodage | Alphabet | Taille | Reconnaissance |
 |----------|----------|--------|----------------|
@@ -490,7 +490,7 @@ def detect_encoding(s):
 
 ---
 
-## 🔗 Ressources
+## Ressources
 
 - [RFC 4648 - Base Encodings](https://tools.ietf.org/html/rfc4648)
 - [ASCII Table](https://www.asciitable.com/)
