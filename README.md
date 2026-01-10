@@ -8,10 +8,10 @@
 |-------|-------------|------|
 | **Encodage** | Base64, Hex, URL Encoding, Unicode... | [Encoding](./Encoding/encoding.md) |
 | **Chiffrement symétrique** | AES, DES, ChaCha20 | [symetric_encryption](./Encryption/symetric_encryption.md) |
+| **Chiffrement asymétrique** | RSA, ECC, Diffie-Hellman, Ed25519 | [asymetric_encryption](./Encryption/asymetric_encryption.md) |
 
 ## À venir
 
-- Chiffrement asymétrique (RSA, ECC...)
 - Fonctions de hachage (MD5, SHA, bcrypt...)
 - Signatures numériques
 - Certificats et PKI
